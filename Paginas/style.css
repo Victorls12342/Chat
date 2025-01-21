@@ -1,0 +1,24 @@
+.message {
+    margin: 5px 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+.message-sent {
+    background-color: #d1e7dd; /* Verde claro */
+    margin-left: auto;
+    text-align: right;
+}
+
+.message-received {
+    background-color: #f8d7da; /* Rojo claro */
+    margin-right: auto;
+    text-align: left;
+}
+.active-button {
+    background-color: #007bff !important; /* Color de fondo del botón activo */
+    color: white !important; /* Color del texto */
+    border: 1px solid #0056b3; /* Borde más oscuro */
+}

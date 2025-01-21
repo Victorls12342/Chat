@@ -1,0 +1,90 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <form id="loginForm" class="bg-light p-5 rounded">
+            <h1 class="text-center">Inicio de Sesión</h1>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input" id="showPassword">
+                    <label class="form-check-label" for="showPassword">Mostrar Contraseña</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-secondary btn-block">Iniciar Sesión</button>
+            <div id="errorMessage" class="text-danger mt-3" style="display: none;"></div>
+            <button id="recoverButton" class="btn btn-link mt-3" style="display: none;">¿Olvidaste tu contraseña?</button>
+        </form>
+    </div>
+
+    <script>
+        let loginAttempts = 0;
+
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita que la página se recargue
+
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = 'none'; // Oculta mensajes de error previos
+            const recoverButton = document.getElementById('recoverButton');
+            recoverButton.style.display = 'none'; // Oculta el botón de recuperación al inicio
+
+            const formData = new FormData(this);
+            const formObject = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formObject)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+                
+                localStorage.setItem('nombre', formObject.nombre);
+                alert('Inicio de sesión exitoso.');
+                window.location.href = '/Chat'; // Redirige a la página principal tras el inicio de sesión
+            } catch (error) {
+                loginAttempts++;
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+
+                // Mostrar el botón de recuperación tras un intento fallido
+                if (loginAttempts > 0) {
+                    recoverButton.style.display = 'block';
+                }
+            }
+        });
+
+        // Redirigir al formulario de recuperación al hacer clic en el botón
+        document.getElementById('recoverButton').addEventListener('click', function() {
+            window.location.href = '/Recover';
+        });
+
+        // Mostrar/ocultar contraseña
+        document.getElementById('showPassword').addEventListener('change', function() {
+            const passwordField = document.getElementById('password');
+            if (this.checked) {
+                passwordField.type = 'text'; // Muestra la contraseña
+            } else {
+                passwordField.type = 'password'; // Oculta la contraseña
+            }
+        });
+    </script>
+</body>
+</html>

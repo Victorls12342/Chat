@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        #chat-container {
+            display: flex;
+            gap: 10px;
+        }
+        #user-list {
+            width: 25%;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        #messages-container {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Chat</h1>
+        <div id="chat-container">
+            <!-- Lista de usuarios conectados -->
+            <div id="user-list">
+                <h5>Usuarios Conectados</h5>
+                <div id="chat-buttons">
+                    <!-- Los botones de usuarios conectados aparecerán aquí -->
+                </div>
+            </div>
+
+            <!-- Mensajes del chat -->
+            <div id="messages-container">
+                <div class="card">
+                    <div class="card-body" style="height: 300px; overflow-y: auto;" id="messages">
+                        <!-- Los mensajes del chat aparecerán aquí -->
+                    </div>
+                </div>
+                <form id="form" action="" class="mt-3">
+                    <div class="input-group">
+                        <input id="input" autocomplete="off" placeholder="Escribe un mensaje" class="form-control" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="mt-3 text-center">
+            <button id="logoutButton" class="btn btn-danger">Salir del Chat</button>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

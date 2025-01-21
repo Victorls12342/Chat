@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Contraseña</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <form id="changePasswordForm" class="bg-light p-5 rounded">
+            <h1 class="text-center">Cambiar Contraseña</h1>
+            <div class="form-group">
+                <label for="newPassword">Nueva Contraseña</label>
+                <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Nueva Contraseña (mínimo 6 caracteres, una mayúscula, una minúscula, un número)" required>
+            </div>
+            <div class="form-check mt-2">
+                <input type="checkbox" class="form-check-input" id="showPassword">
+                <label class="form-check-label" for="showPassword">Mostrar Contraseña</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Cambiar Contraseña</button>
+            <div id="errorMessage" class="text-danger mt-3" style="display: none;"></div>
+        </form>
+        <button id="logoutButton" class="btn btn-danger mt-3">Cerrar Sesión</button>
+    </div>
+
+    <script>
+        document.getElementById('changePasswordForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita la recarga de la página
+
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = 'none'; // Oculta errores previos
+
+            // Recuperar datos del formulario y del localStorage
+            const formData = new FormData(this);
+            const formObject = Object.fromEntries(formData.entries());
+            formObject.nombre = localStorage.getItem('nombre');
+            formObject.email = localStorage.getItem('email');
+            formObject.fechaNacimiento = localStorage.getItem('fechaNacimiento');
+
+            // Validación de la nueva contraseña
+            const passwordErrors = [];
+            if (formObject.newPassword.length < 6) {
+                passwordErrors.push('al menos 6 caracteres');
+            }
+            if (!/[A-Z]/.test(formObject.newPassword)) {
+                passwordErrors.push('una letra mayúscula');
+            }
+            if (!/[a-z]/.test(formObject.newPassword)) {
+                passwordErrors.push('una letra minúscula');
+            }
+            if (!/[0-9]/.test(formObject.newPassword)) {
+                passwordErrors.push('un número');
+            }
+
+            if (passwordErrors.length > 0) {
+                errorMessage.textContent = `La nueva contraseña debe contener: ${passwordErrors.join(', ')}.`;
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            try {
+                // Enviar datos al servidor
+                const response = await fetch('/changePassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formObject)
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+
+                // Contraseña cambiada con éxito, limpiar datos del localStorage
+                localStorage.removeItem('nombre');
+                localStorage.removeItem('email');
+                localStorage.removeItem('fechaNacimiento');
+
+                alert('Contraseña cambiada con éxito.');
+                window.location.href = '/Login'; // Redirigir al inicio de sesión
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block'; // Mostrar mensaje de error
+            }
+        });
+        // Mostrar/ocultar contraseña
+        document.getElementById('showPassword').addEventListener('change', function() {
+            const passwordField = document.getElementById('password');
+            if (this.checked) {
+                passwordField.type = 'text'; // Muestra la contraseña
+            } else {
+                passwordField.type = 'password'; // Oculta la contraseña
+            }
+        });
+        // Validar que los datos del usuario estén en localStorage
+        if (!localStorage.getItem('nombre') || !localStorage.getItem('email') || !localStorage.getItem('fechaNacimiento')) {
+            alert('Faltan datos para cambiar la contraseña. Redirigiendo...');
+            window.location.href = '/Recover'; // Redirige a la recuperación de datos
+        }
+
+        // Agregar evento para cerrar sesión
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Limpiar datos del localStorage
+            localStorage.removeItem('nombre');
+            localStorage.removeItem('email');
+            localStorage.removeItem('fechaNacimiento');
+
+            // Redirigir al inicio de sesión o a otra página
+            window.location.href = '/login.html';
+        });
+    </script>
+</body>
+</html>
