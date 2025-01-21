@@ -133,7 +133,8 @@ io.on('connection', (socket) => {
     // Manejar mensajes públicos
     socket.on('chat message', (msg) => {
         const sender = listaUsuarios[socket.id]?.nombre || 'Anónimo';
-        io.emit('chat message', `${sender}: ${msg}`);
+
+        io.emit('chat message', { sender, msg });
     });
  
     // Manejar desconexión

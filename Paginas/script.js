@@ -103,10 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Escuchar mensajes públicos
-    socket.on('chat message', (msg) => {
+    socket.on('chat message', ({ sender, msg }) => {
+        if (sender === storedName){
+            return;
+        }
         const item = document.createElement('div');
         item.className = 'message message-received';
-        item.textContent = msg;
+        item.innerHTML = `<strong>${sender}:</strong> ${msg}`;
         messages.appendChild(item);
         messages.scrollTop = messages.scrollHeight;
     });
