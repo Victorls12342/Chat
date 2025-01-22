@@ -1,3 +1,115 @@
+/* General */
+body {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #ff0000; /* Títulos en rojo */
+    text-align: center;
+}
+
+a, button {
+    color: #fff; /* Texto blanco */
+    background-color: #ff0000; /* Fondo rojo */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover, button:hover {
+    background-color: #ff3333; /* Fondo rojo más claro */
+    color: #000; /* Texto negro */
+}
+
+/* Contenedores */
+.container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 900px;
+    border: 1px solid #ff0000; /* Borde rojo */
+    border-radius: 10px;
+    background-color: #1a1a1a; /* Fondo oscuro */
+}
+
+/* Formularios */
+.bg-light {
+    background-color: #1a1a1a !important;
+  }
+form {
+    margin: 10px 0;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ff0000; /* Borde rojo */
+    border-radius: 5px;
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+}
+input{
+    margin: 0px 0;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #888; /* Texto de marcador gris */
+}
+
+/* Listas y Mensajes */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ff0000; /* Borde rojo */
+    border-radius: 5px;
+    background-color: #1a1a1a; /* Fondo oscuro */
+}
+
+/* Chat */
+#chat-container {
+    display: flex;
+    gap: 10px;
+    color: #fff;
+}
+
+#user-list {
+    width: 25%;
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ff0000; /* Borde rojo */
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #1a1a1a; /* Fondo oscuro */
+}
+
+#messages-container {
+    flex: 1;
+    background-color: #1a1a1a; /* Fondo oscuro */
+    border: 1px solid #ff0000; /* Borde rojo */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#messages {
+    height: 300px;
+    overflow-y: auto;
+    background-color: #000; /* Fondo negro */
+    border: 1px solid #ff0000; /* Borde rojo */
+    border-radius: 5px;
+    padding: 10px;
+}
+
 .message {
     margin: 5px 10px;
     padding: 10px;
@@ -7,18 +119,48 @@
 }
 
 .message-sent {
-    background-color: #d1e7dd; /* Verde claro */
+    background-color: #1a1a1a; /* Fondo oscuro */
+    color: #00ff00; /* Texto verde para mensajes enviados */
     margin-left: auto;
     text-align: right;
+    border: 1px solid #ff0000; /* Borde rojo */
 }
 
 .message-received {
-    background-color: #f8d7da; /* Rojo claro */
+    background-color: #1a1a1a; /* Fondo oscuro */
+    color: #ff0000; /* Texto rojo para mensajes recibidos */
     margin-right: auto;
     text-align: left;
+    border: 1px solid #ff0000; /* Borde rojo */
 }
-.active-button {
-    background-color: #007bff !important; /* Color de fondo del botón activo */
-    color: white !important; /* Color del texto */
-    border: 1px solid #0056b3; /* Borde más oscuro */
+
+/* Botón de Logout */
+#logoutButton {
+    background-color: #ff0000; /* Fondo rojo */
+    color: #fff; /* Texto blanco */
+    border: 1px solid #ff0000;
 }
+
+#logoutButton:hover {
+    background-color: #fff; /* Fondo blanco al pasar el ratón */
+    color: #ff0000; /* Texto rojo */
+}
+.form-check {
+    display: flex;
+    align-items: center; /* Alinear el checkbox y el texto verticalmente */
+    gap: 10px; /* Espacio entre el checkbox y el texto */
+    margin-top: 10px;
+    padding-left:0;
+}
+
+.form-check-input {
+    margin: 0; /* Quitar cualquier margen predeterminado */
+    width: auto; /* Asegurar que el tamaño del checkbox sea apropiado */
+    height: auto; /* Asegurar que el tamaño del checkbox sea apropiado */
+}
+
+.form-check-label {
+    color: #fff; /* Texto en blanco */
+    padding-left:4%;
+}
+.card{ border: #ff0000;}

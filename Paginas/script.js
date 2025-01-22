@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Mostrar mensaje público enviado
                 const item = document.createElement('div');
                 item.className = 'message message-sent';
-                item.innerHTML = `<strong style="color: blue;">Para Chat Público:</strong> ${message}`;
+                item.innerHTML = `<strong style="color: #00bfff;">Para Chat Público:</strong> ${message}`;
                 messages.appendChild(item);
             } else {
                 const recipientName = input.dataset.recipientName || 'desconocido';
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Mostrar mensaje privado enviado
                 const item = document.createElement('div');
                 item.className = 'message message-sent';
-                item.innerHTML = `<strong style="color: blue;">Para ${recipientName}:</strong> ${message}`;
+                item.innerHTML = `<strong style="color: #00bfff;">Para ${recipientName}:</strong> ${message}`;
                 messages.appendChild(item);
             }
 
