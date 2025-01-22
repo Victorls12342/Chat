@@ -75,10 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         const destinatario = currentRecipient;
-        const message = input.value;
+        var message = input.value;
 
         if (message) {
             if (destinatario === 'public') {
+                if (message == '/insulto'){
+                    console.log(typeof message);
+                    message = 'Subnormal';
+                }
                 socket.emit('chat message', message); // Enviar mensaje público
 
                 // Mostrar mensaje público enviado
