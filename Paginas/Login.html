@@ -55,9 +55,7 @@
                     const errorText = await response.text();
                     throw new Error(errorText);
                 }
-                
                 localStorage.setItem('nombre', formObject.nombre);
-                alert('Inicio de sesión exitoso.');
                 window.location.href = '/Chat'; // Redirige a la página principal tras el inicio de sesión
             } catch (error) {
                 loginAttempts++;

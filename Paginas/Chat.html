@@ -22,6 +22,15 @@
             flex: 1;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedName = localStorage.getItem('nombre');
+            if (!storedName) {
+                alert('Debes iniciar sesión primero.');
+                window.location.href = '/Login'; // Redirige al login
+            }
+        });
+    </script>    
 </head>
 <body>
     <div class="container mt-5">
